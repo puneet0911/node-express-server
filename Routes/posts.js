@@ -15,16 +15,4 @@ router.get('/all', async function(req, res, next) {
     }
 });
 
-router.get('/add', async function(req, res, next) {
-    try{
-        const allPosts = await postModel.find()
-        res.status(200).send({
-            status: 'Success',
-            data: allPosts,
-        })
-    }catch (error){
-        console.log(" error ", error)
-    }
-});
-
 module.exports = router;
