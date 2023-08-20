@@ -7,22 +7,21 @@ const password = process.env.MONGODB_PASSWORD; // REPLACE WITH YOUR Cluster Pass
 const cluster = process.env.MONGODB_CLUSTER; // REPLACE WITH YOUR Cluster NAme
 const dbname = process.env.MONGODB_DB; // REPLACE WITH YOUR DB NAME
 
-class Database {
-  constructor() {
-    this._connect();
+  const connectDB = async () => {
+    try {
+      await mongoose
+        .connect(`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}`)
+        .then(() => {
+          console.log('Database connection successful');
+        })
+        .catch((err) => {
+          console.log(" err ",err)
+          console.error('Database connection error');
+        });
+    } catch (error) {
+      console.log(error);
+      process.exit(1);
+    }
   }
 
-  _connect() {
-    mongoose
-      .connect(`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}`)
-      .then(() => {
-        console.log('Database connection successful');
-      })
-      .catch((err) => {
-        console.log(" err ",err)
-        console.error('Database connection error');
-      });
-  }
-}
-
-module.exports = new Database();
+module.exports = connectDB;
