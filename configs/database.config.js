@@ -10,7 +10,10 @@ const dbname = process.env.MONGODB_DB; // REPLACE WITH YOUR DB NAME
   const connectDB = async () => {
     try {
       await mongoose
-        .connect(`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}`)
+        .connect(`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}`,{
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        })
         .then(() => {
           console.log('Database connection successful');
         })
