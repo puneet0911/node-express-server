@@ -2,20 +2,21 @@ const mongoose = require("mongoose");
 // const mongoose = require("../configs/database.config");
 
 const PostSchema = new mongoose.Schema({
-    text: {
+    title: {
       type: String,
       required: true,
     },
-    name: {
+    content: {
       type: String,
       required: true,
     },
-    avatar: {
+    image: {
       type: String,
       required: false,
     },
     user: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
     likes: {
