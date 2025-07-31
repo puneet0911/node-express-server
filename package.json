@@ -4,9 +4,9 @@
   "description": "this project is to demonstrate the express server working with nodejs",
   "main": "server.js",
   "scripts": {
-    "start": "node ./bin/www",
-    "test": "node ./bin/www",
-    "watch": "node --watch ./bin/www"
+    "start": "node  --trace-warnings ./bin/www",
+    "test": "node  --trace-warnings ./bin/www",
+    "watch": "node --watch  --trace-warnings ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -20,14 +20,17 @@
   "homepage": "https://github.com/puneet0911/node-express-server#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "firebase": "^10.1.0",
     "firebase-admin": "^11.10.1",
+    "http": "^0.0.1-security",
     "mongoose": "^7.4.3",
     "passport": "^0.6.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "socket.io": "^4.7.5"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
