@@ -28,6 +28,25 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
   socket.emit("me", socket.id);
 
+  // --- Chat Room Logic Start ---
+  // Join a chat room
+  socket.on("joinRoom", (room) => {
+    socket.join(room);
+    socket.to(room).emit("message", { user: "system", text: `A user joined room: ${room}` });
+  });
+
+  // Leave a chat room
+  socket.on("leaveRoom", (room) => {
+    socket.leave(room);
+    socket.to(room).emit("message", { user: "system", text: `A user left room: ${room}` });
+  });
+
+  // Send a message to a room
+  socket.on("chatMessage", ({ room, user, message }) => {
+    io.to(room).emit("message", { user, text: message });
+  });
+  // --- Chat Room Logic End ---
+
   socket.on("disconnect", () => {
     socket.broadcast.emit("callEnded");
   });
