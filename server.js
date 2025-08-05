@@ -67,7 +67,12 @@ io.on("connection", (socket) => {
 });
 
 console.log(" process.env.SESSION_SECRET ", process.env.SESSION_SECRET)
-app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
+app.use(session({ 
+  secret: process.env.SESSION_SECRET, 
+  resave: false, 
+  saveUninitialized: false,
+  cookie: { secure: true, sameSite: 'lax' }
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 console.log(" process.env.SESSION_SECRET ", process.env.SESSION_SECRET)
@@ -135,5 +140,10 @@ function ensureAuthenticated(req, res, next) {
   }
   res.status(401).json({ message: 'Unauthorized' });
 }
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
+});
 
 module.exports = app;
