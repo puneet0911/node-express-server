@@ -7,9 +7,9 @@ const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const userModel = require("./Models/user.model");
 
-const indexRouter = require('./Routes/index')
-const postRouter  = require('./Routes/posts')
-const userRouter = require('./Routes/users');
+const indexRouter = require('./routes/index')
+const postRouter  = require('./routes/posts')
+const userRouter = require('./routes/users');
 
 const app = express ();
 const server = http.createServer(app);
