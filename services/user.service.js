@@ -53,3 +53,26 @@ exports.loginUser = async (email, password) => {
         });
       })(req, res, next);
 }
+
+exports.userDetails = async (email) => {
+    try{
+           const userRep = await userModel.find({email:req.params.email })
+           res.status(200).send({
+               status: 'Success',
+               data: userRep,
+           })
+       }catch (error){
+            console.log(" error ", error)
+            res.status(500).json({ error: 'Failed to retrieve user details' });
+       }
+ }
+
+ exports.getAllUsers = async () => {
+    try {
+        const allUsers = await userModel.find();
+        return allUsers;
+    } catch (error) {
+        console.log(" error ", error);
+        throw new Error('Failed to retrieve users');
+    } 
+}

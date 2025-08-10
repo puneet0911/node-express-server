@@ -23,3 +23,21 @@ exports.login = async (req, res) => {
         res.status(500).json({ error: 'Login failed' });
     }
 };
+
+exports.getUserDetails = async (req, res) => {
+  try {
+    const user = await userService.userDetails(req.params.email);
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+}
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await userService.getAllUsers();
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+}
