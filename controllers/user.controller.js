@@ -1,3 +1,4 @@
+const passport = require('passport');
 const userService = require('../services/user.service');
 
 exports.signup = async (req, res) => {
@@ -9,19 +10,22 @@ exports.signup = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   // Your login logic here
-    try {
-        const { email, password } = req.body;
-        const user = await userService.loginUser(email, password);
-        if (user) {
-            res.status(200).json({ message: 'Login successful', user });
-        } else {
-            res.status(401).json({ message: 'Invalid email or password' });
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return next(err);
         }
-    } catch (err) {
-        res.status(500).json({ error: 'Login failed' });
-    }
+        if (!user) {
+            return res.status(401).json({ message: info.message || 'Invalid credentials' });
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            return res.status(200).json({ message: 'Login successful', user });
+        });
+    })(req, res, next);
 };
 
 exports.getUserDetails = async (req, res) => {
