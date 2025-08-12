@@ -33,7 +33,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET, 
   resave: false, 
   saveUninitialized: false,
-  cookie: { secure: true, sameSite: 'lax' }
+  cookie: { secure: false, sameSite: 'lax' } // secure: false for HTTP
 }));
 app.use(passport.initialize());
 app.use(passport.session());
