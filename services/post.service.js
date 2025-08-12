@@ -1,34 +1,25 @@
 const postModel = require("../Models/post.model");
 
-exports.createPost = async (req, res) => {
-    try{
-        let postAdd = new postModel({title:req.body.title,content:req.body.content, user:req.session.passport.user._id});
-        await postAdd.save()
-        return res.json({
-            type:"Success",
-            massage:'Post added successfully'
-        });
-    }catch (error){
-        console.log(" error ", error)
-        return res.json({
-            type:"error",
-            massage:'Error! Post added'
-        });
+exports.createPost = async (title, content, userId) => {
+    try {
+        let postAdd = new postModel({ title, content, user: userId });
+        await postAdd.save();
+        return { type: "Success", message: "Post added successfully" };
+    } catch (error) {
+        console.log("error", error);
+        throw new Error("Error! Post not added");
     }
-}
+};
 
-exports.getAllPosts = async (req, res) => {
-    try{
-        const allPosts = await postModel.find({user:req.session.passport.user._id});
-        res.status(200).send({
-            status: 'Success',
-            data: allPosts,
-        });
-    }catch (error){
-        console.log(" error ", error);
-        res.status(500).json({ error: 'Failed to fetch posts' });
+exports.getAllPosts = async (userId) => {
+    try {
+        const allPosts = await postModel.find({ user: userId });
+        return allPosts;
+    } catch (error) {
+        console.log("error", error);
+        throw new Error("Failed to fetch posts");
     }
-}
+};
 
 exports.getPostDetails = async (req, res) => {
     try{
@@ -46,18 +37,20 @@ exports.getPostDetails = async (req, res) => {
     }
 }
 
-exports.updatePost = async (req, res) => {
-    try{
-        await postModel.findByIdAndUpdate(req.params.postId, { title:req.body.title, content:req.body.content });
-        return res.json({
-            type:"Success",
-            massage:'Post updated successfully'
-        }); 
-    }catch (error){
-        console.log(" error ", error);
-        return res.json({
-            type:"error",
-            massage:'Error! Post not updated'
+exports.updatePost = async (postId, dataBody, userId) => {
+    try {
+        await postModel.findByIdAndUpdate(postId, {
+            title: dataBody.title,
+            content: dataBody.content,
+            updatedBy: userId,
+            updatedDate: new Date()
         });
+        return {
+            type: "Success",
+            message: 'Post updated successfully'
+        };
+    } catch (error) {
+        console.log("error", error);
+        throw new Error("Error! Post not updated");
     }
-}   
+}
