@@ -3,7 +3,9 @@ const userService = require('../services/user.service');
 
 exports.signup = async (req, res) => {
   try {
-    const user = await userService.createUser(req.body);
+    const userData = req.body;
+    userData.role = userData.role || 'user'; // Default role
+    const user = await userService.createUser(userData);
     res.status(201).json(user);
   } catch (err) {
     res.status(400).json({ error: err.message });

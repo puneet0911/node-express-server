@@ -103,6 +103,15 @@ function ensureAuthenticated(req, res, next) {
   res.status(401).json({ message: 'Unauthorized' });
 }
 
+exports.requireRole = (role) => {
+  return (req, res, next) => {
+    if (req.isAuthenticated() && req.user.role === role) {
+      return next();
+    }
+    res.status(403).json({ message: 'Forbidden: insufficient privileges' });
+  };
+};
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
