@@ -14,7 +14,7 @@ const PostSchema = new mongoose.Schema({
       type: String,
       required: false,
     },
-    user: {
+    createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
@@ -33,9 +33,18 @@ const PostSchema = new mongoose.Schema({
         userID : { type : String}
       }],
     },
-    date: {
+    createdAt: {
       type: String,
       default: Date,
+    },
+    updatedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: false,
+    },
+    updatedDate: {
+      type: Date,
+      required: false,
     },
   });
   

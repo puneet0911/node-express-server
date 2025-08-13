@@ -2,7 +2,7 @@ const postModel = require("../Models/post.model");
 
 exports.createPost = async (title, content, userId) => {
     try {
-        let postAdd = new postModel({ title, content, user: userId });
+        let postAdd = new postModel({ title, content, createdBy: userId });
         await postAdd.save();
         return { type: "Success", message: "Post added successfully" };
     } catch (error) {
@@ -13,7 +13,7 @@ exports.createPost = async (title, content, userId) => {
 
 exports.getAllPosts = async (userId) => {
     try {
-        const allPosts = await postModel.find({ user: userId });
+        const allPosts = await postModel.find({ createdBy: userId });
         return allPosts;
     } catch (error) {
         console.log("error", error);
