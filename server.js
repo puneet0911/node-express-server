@@ -10,6 +10,7 @@ const userModel = require("./Models/user.model");
 const indexRouter = require('./routes/index')
 const postRouter  = require('./routes/posts')
 const userRouter = require('./routes/users');
+const adminUserRouter = require('./routes/adminUsers');
 
 const app = express ();
 const server = http.createServer(app);
@@ -91,6 +92,7 @@ app.use(express.json());
 app.use("/user", userRouter);
 app.use("/", ensureAuthenticated, indexRouter);
 app.use("/post", ensureAuthenticated, postRouter);
+app.use("/admin", requireRole('admin'), adminUserRouter);
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', time: new Date() });
@@ -103,7 +105,7 @@ function ensureAuthenticated(req, res, next) {
   res.status(401).json({ message: 'Unauthorized' });
 }
 
-exports.requireRole = (role) => {
+function requireRole(role){
   return (req, res, next) => {
     if (req.isAuthenticated() && req.user.role === role) {
       return next();
