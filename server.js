@@ -6,6 +6,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const userModel = require("./Models/user.model");
+const { getDbStatus } = require('./dbHealth');
 
 const indexRouter = require('./routes/index')
 const postRouter  = require('./routes/posts')
@@ -95,7 +96,11 @@ app.use("/post", ensureAuthenticated, postRouter);
 app.use("/admin", requireRole('admin'), adminUserRouter);
 
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', time: new Date() });
+  res.json({
+    status: 'ok',
+    time: new Date(),
+    db: getDbStatus() // Include DB status in the health check
+  });
 });
 
 function ensureAuthenticated(req, res, next) {
