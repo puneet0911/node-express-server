@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node  --trace-warnings ./bin/www",
     "test": "node  --trace-warnings ./bin/www",
-    "watch": "node --watch  --trace-warnings ./bin/www"
+    "watch": "node --watch  --trace-warnings ./bin/www",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -34,6 +36,12 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "@eslint/js": "^9.33.0",
+    "eslint": "^9.33.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.3.0",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.6.2"
   }
 }
