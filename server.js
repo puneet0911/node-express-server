@@ -7,6 +7,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const userModel = require("./Models/user.model");
 const { getDbStatus } = require('./dbHealth');
+const logger = require('./logger');
 
 const indexRouter = require('./routes/index')
 const postRouter  = require('./routes/posts')
@@ -120,7 +121,7 @@ function requireRole(role){
 };
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  logger.error(err.stack);
   res.status(500).json({
     error: 'Something went wrong!',
     message: process.env.NODE_ENV === 'development' ? err.message : undefined
