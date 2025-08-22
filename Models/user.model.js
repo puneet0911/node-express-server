@@ -30,11 +30,10 @@ const userSchema = new mongoose.Schema({
   });
 
   userSchema.statics.isValidPassword = async function (password, dbPassword) {
-    console.log(" dbPassword ", dbPassword)
-    console.log(" this.password ", password)
     try {
       return await bcrypt.compare(password, dbPassword);
     } catch (err) {
+      console.error('Error comparing passwords:', err);
       throw err;
     }
   };

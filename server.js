@@ -120,7 +120,7 @@ function requireRole(role){
   };
 };
 
-app.use((err, req, res, next) => {
+app.use((err, res) => {
   logger.error(err.stack);
   res.status(500).json({
     error: 'Something went wrong!',

@@ -20,14 +20,14 @@ exports.createUser = async (userData) => {
 
 exports.userDetails = async (email) => {
     try{
-           const userRep = await userModel.find({email:req.params.email })
-           res.status(200).send({
+           const userRep = await userModel.find({email:email })
+           return {
                status: 'Success',
                data: userRep,
-           })
+           }
        }catch (error){
             console.log(" error ", error)
-            res.status(500).json({ error: 'Failed to retrieve user details' });
+            throw new Error(error.message || 'Failed to retrieve user details' );
        }
  }
 
