@@ -1,4 +1,3 @@
-
 const userAdminService = require('../services/adminUser.service');
 
 exports.getUserList = async (req, res) => {
@@ -8,4 +7,4 @@ exports.getUserList = async (req, res) => {
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
-}
+};

@@ -7,12 +7,14 @@ This project demonstrates a Node.js server built with Express, featuring user au
 ## Setup Instructions
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/your-username/your-repo.git
    cd your-repo
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
@@ -39,6 +41,7 @@ This project demonstrates a Node.js server built with Express, featuring user au
 ### User Routes
 
 - **Sign Up**
+
   ```
   POST /user/signup
   {
@@ -48,6 +51,7 @@ This project demonstrates a Node.js server built with Express, featuring user au
   ```
 
 - **Login**
+
   ```
   POST /user/login
   {
@@ -64,6 +68,7 @@ This project demonstrates a Node.js server built with Express, featuring user au
 ### Post Routes
 
 - **Create Post**
+
   ```
   POST /post/add
   {
@@ -73,6 +78,7 @@ This project demonstrates a Node.js server built with Express, featuring user au
   ```
 
 - **Get All Posts**
+
   ```
   GET /post/all
   ```
@@ -103,11 +109,17 @@ This project demonstrates a Node.js server built with Express, featuring user au
   ```
 - **Send a message:**
   ```js
-  socket.emit('chatMessage', { room: 'room1', user: 'Alice', message: 'Hello!' });
+  socket.emit('chatMessage', {
+    room: 'room1',
+    user: 'Alice',
+    message: 'Hello!',
+  });
   ```
 - **Listen for messages:**
   ```js
-  socket.on('message', (data) => { console.log(data); });
+  socket.on('message', (data) => {
+    console.log(data);
+  });
   ```
 
 ---

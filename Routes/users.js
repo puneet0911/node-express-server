@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const userController = require('../controllers/user.controller');
 
-
 /* Get specific user. */
 router.get('/:email', userController.getUserDetails);
 
@@ -10,7 +9,6 @@ router.get('/:email', userController.getUserDetails);
 router.post('/signup', userController.signup);
 
 // Login route
-router.post('/login',userController.login);
+router.post('/login', userController.login);
 
-  
 module.exports = router;

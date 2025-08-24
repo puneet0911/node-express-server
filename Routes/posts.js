@@ -14,4 +14,4 @@ router.get('/get/:postId', postController.getPostDetails);
 /* Update post. */
 router.put('/update/:postId', postController.updatePost);
 
-module.exports = router;    
+module.exports = router;

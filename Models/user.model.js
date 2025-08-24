@@ -1,41 +1,41 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    avatar: {
-      type: String,
-      required: false,
-    },
-    password: {
-      type: String,
-      required: true
-    },
-    role: { 
-        type: String, 
-        enum: ['user', 'admin'], 
-        default: 'user' 
-    },
-    date: {
-      type: String,
-      default: Date,
-    },
-  });
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  avatar: {
+    type: String,
+    required: false,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
+  },
+  date: {
+    type: String,
+    default: Date,
+  },
+});
 
-  userSchema.statics.isValidPassword = async function (password, dbPassword) {
-    try {
-      return await bcrypt.compare(password, dbPassword);
-    } catch (err) {
-      console.error('Error comparing passwords:', err);
-      throw err;
-    }
-  };
-  
-  module.exports = mongoose.model('User', userSchema);
+userSchema.statics.isValidPassword = async function (password, dbPassword) {
+  try {
+    return await bcrypt.compare(password, dbPassword);
+  } catch (err) {
+    console.error('Error comparing passwords:', err);
+    throw err;
+  }
+};
+
+module.exports = mongoose.model('User', userSchema);

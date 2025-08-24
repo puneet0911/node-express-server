@@ -7,7 +7,7 @@
     "start": "node  --trace-warnings ./bin/www",
     "test": "node  --trace-warnings ./bin/www",
     "watch": "node --watch  --trace-warnings ./bin/www",
-    "lint": "eslint .",
+    "lint": "eslint --fix",
     "format": "prettier --write ."
   },
   "repository": {
