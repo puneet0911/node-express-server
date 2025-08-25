@@ -1,7 +1,9 @@
+const logger = require('../logger');
 const postService = require('../services/post.service');
 
 exports.createPost = async (req, res) => {
   try {
+    logger.info('Create Post requested');
     console.log(' req.body.title ', req.body.title);
     console.log(' req.body.content ', req.body.content);
     if (req.body.title && req.body.content) {
@@ -21,6 +23,7 @@ exports.createPost = async (req, res) => {
 
 exports.getAllPosts = async (req, res) => {
   try {
+    logger.info('Get requested all Posts');
     const posts = await postService.getAllPosts(req.session.passport.user._id);
     res.status(200).json(posts);
   } catch (err) {
@@ -30,6 +33,7 @@ exports.getAllPosts = async (req, res) => {
 
 exports.getPostDetails = async (req, res) => {
   try {
+    logger.info('Get requested Post details');
     const post = await postService.getPostDetails(req.params.postId);
     res.status(200).json(post);
   } catch (err) {
@@ -39,6 +43,7 @@ exports.getPostDetails = async (req, res) => {
 
 exports.updatePost = async (req, res) => {
   try {
+    logger.info('Update Post requested');
     const updatedPost = await postService.updatePost(
       req.params.postId,
       req.body,
