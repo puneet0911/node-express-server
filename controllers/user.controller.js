@@ -1,8 +1,10 @@
 const passport = require('passport');
 const userService = require('../services/user.service');
+const logger = require('../logger');
 
 exports.signup = async (req, res) => {
   try {
+    logger.info('Signup requested');
     const userData = req.body;
     userData.role = userData.role || 'user'; // Default role
     const user = await userService.createUser(userData);
@@ -14,6 +16,7 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res, next) => {
   // Your login logic here
+    logger.info('Login requested');
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       return next(err);
@@ -34,6 +37,7 @@ exports.login = async (req, res, next) => {
 
 exports.getUserDetails = async (req, res) => {
   try {
+    logger.info('User Details requested');
     const user = await userService.userDetails(req.params.email);
     res.status(200).json(user);
   } catch (err) {
@@ -43,6 +47,7 @@ exports.getUserDetails = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
+    logger.info('All User List requested');
     const users = await userService.getAllUsers();
     res.status(200).json(users);
   } catch (err) {
