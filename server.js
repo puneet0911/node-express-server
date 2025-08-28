@@ -41,7 +41,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-console.log(' process.env.SESSION_SECRET ', process.env.SESSION_SECRET);
+logger.info('SESSION_SECRET ', process.env.SESSION_SECRET);
 
 // Configure Passport local strategy
 passport.use(

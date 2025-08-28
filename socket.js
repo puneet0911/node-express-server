@@ -1,7 +1,9 @@
+const logger = require("./logger");
+
 module.exports = (io) => {
   io.on('connection', (socket) => {
     socket.emit('me', socket.id);
-    console.log('New client connected with id:', socket.id);
+    logger.info('New client connected with id:', socket.id);
 
     // Chat Room Logic
     socket.on('joinRoom', (room) => {
@@ -22,16 +24,18 @@ module.exports = (io) => {
     });
 
     socket.on('chatMessage', ({ room, user, message }) => {
+      logger.info(`Message from ${user} in room ${room}: ${message}`);
       io.to(room).emit('message', { user, text: message });
     });
 
     // Call Signaling Logic
     socket.on('disconnect', () => {
+      logger.info('Client disconnected with id:', socket.id);
       socket.broadcast.emit('callEnded');
     });
 
     socket.on('callUser', (data) => {
-      console.log(`Incoming call from ${data.from}`);
+      logger.info('callUser data:', data);
       io.to(data.userToCall).emit('callUser', {
         signal: data.signalData,
         from: data.from,
@@ -40,7 +44,7 @@ module.exports = (io) => {
     });
 
     socket.on('answerCall', (data) => {
-      console.log(`Answering call from ${data.from}`);
+      logger.info('answerCall data:', data);
       io.to(data.to).emit('callAccepted', data.signal);
     });
   });
