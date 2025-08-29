@@ -30,7 +30,6 @@ const io = require('socket.io')(server, {
 // Use the separate socket module
 require('./socket')(io);
 
-console.log(' process.env.SESSION_SECRET ', process.env.SESSION_SECRET);
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -91,8 +90,6 @@ app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
-
-console.log(' Working ');
 
 app.use(express.json());
 app.use('/user', userRouter);
