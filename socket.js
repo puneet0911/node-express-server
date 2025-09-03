@@ -1,4 +1,4 @@
-const logger = require("./logger");
+const logger = require("./src/logger");
 
 module.exports = (io) => {
   io.on('connection', (socket) => {

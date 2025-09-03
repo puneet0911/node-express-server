@@ -5,14 +5,14 @@ const http = require('http');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
-const userModel = require('./Models/user.model');
+const userModel = require('./src/Models/user.model');
 const { getDbStatus } = require('./dbHealth');
-const logger = require('./logger');
+const logger = require('./src/logger');
 
-const indexRouter = require('./routes/index');
-const postRouter = require('./routes/posts');
-const userRouter = require('./routes/users');
-const adminUserRouter = require('./routes/adminUsers');
+const indexRouter = require('./src/routes/index');
+const postRouter = require('./src/routes/posts');
+const userRouter = require('./src/routes/users');
+const adminUserRouter = require('./src/routes/adminUsers');
 
 const app = express();
 const server = http.createServer(app);
