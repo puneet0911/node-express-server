@@ -1,5 +1,5 @@
 require('dotenv').config();
-import { initializeApp } from 'firebase/app';
+const initializeApp = require('firebase/app');
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_APIKEY,
